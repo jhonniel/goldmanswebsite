@@ -17,10 +17,7 @@ export default function Hero() {
           <h1 className="max-w-xl text-[1.75rem] leading-[1.15] font-normal tracking-[-0.03em] break-words text-ink sm:text-5xl lg:text-[3.2rem]">
             {company.name}
           </h1>
-          <p className="mt-4 max-w-xl text-lg leading-snug text-ink sm:mt-5 sm:text-2xl">
-            Reliable solutions for businesses and organizations.
-          </p>
-          <p className="mt-4 max-w-lg text-sm leading-relaxed text-ink-muted sm:mt-5 sm:text-lg">
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-ink-muted sm:text-lg">
             {company.description}
           </p>
           <div className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:items-center">

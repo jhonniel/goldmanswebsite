@@ -1,62 +1,29 @@
-import { company } from "../config/company";
-import { projects } from "../data/projects";
+import { company, hasVerifiedPhone } from "../config/company";
+import { industries } from "../data/industries";
 import { services } from "../data/services";
-import { technologies } from "../data/technologies";
 
 export const chatSuggestions = [
   "What does the company do?",
-  "What services do you offer?",
+  "What products do you offer?",
   "How can I contact you?",
   "Send a message",
 ] as const;
 
 type DayPart = "morning" | "afternoon" | "evening";
 
-const valuesOnSite = [
-  {
-    title: "Integrity",
-    text: "We believe in honest and professional relationships.",
-  },
-  {
-    title: "Quality",
-    text: "We focus on delivering solutions that meet the needs of our clients.",
-  },
-  {
-    title: "Improvement",
-    text: "We look for better ways to meet client needs.",
-  },
-  {
-    title: "Commitment",
-    text: "We remain committed to the people and organizations we work with.",
-  },
-] as const;
-
 const reasonsOnSite = [
   {
-    title: "Reliability",
-    text: "Focused on dependable solutions and professional service.",
+    title: "Dependable products",
+    text: "We focus on supplying products and equipment that clients can rely on.",
   },
   {
-    title: "Quality",
-    text: "We prioritize quality in every solution we deliver.",
+    title: "Responsive service",
+    text: "Inquiries and requirements are handled with clear, professional follow-through.",
   },
   {
-    title: "Practical Approach",
-    text: "We look for solutions that fit the work and remain useful over time.",
+    title: "Timely delivery",
+    text: "We are committed to delivering orders on time to the client.",
   },
-  {
-    title: "Partnership",
-    text: "We aim to build lasting relationships with the businesses and organizations we serve.",
-  },
-] as const;
-
-const approachOnSite =
-  "Gold Mans Supply Corporation is built around a calm, professional way of working: clear communication, considered solutions, and long-term support.";
-
-const stepsOnSite = [
-  "Understand the need: we begin by listening closely to the requirement in front of us.",
-  "Deliver the right solution: we focus on practical solutions that fit the work, not the other way around.",
-  "Build lasting relationships: we aim to support clients with consistency, clarity, and care.",
 ] as const;
 
 type Topic = {
@@ -70,20 +37,53 @@ const topics: Topic[] = [
       "who are you",
       "about the company",
       "about company",
+      "about us",
       "what do you do",
       "what does the company",
       "what is gold mans",
+      "what is goldman",
       "who is gold mans",
+      "who is goldman",
       "company name",
       "legal name",
       "tell me about",
       "who is the company",
     ],
-    answer: `${company.about} ${company.aboutSecondary}`,
+    answer: `${company.about} The legal company name is ${company.legalName}. The trade name is ${company.tradeName}.`,
   },
   {
-    keys: ["service", "services", "offer", "what can you", "what do you provide"],
-    answer: `The Services section of this website lists: ${services
+    keys: ["trade name", "dba", "doing business", "goldman enterprise"],
+    answer: `The trade name listed on this website is ${company.tradeName}. The legal company name is ${company.legalName}.`,
+  },
+  {
+    keys: ["chairman", "jonathan", "who runs", "who heads"],
+    answer: `The chairman listed on this website is ${company.chairman}.`,
+  },
+  {
+    keys: ["mission"],
+    answer: `The mission listed on this website is: ${company.mission}`,
+  },
+  {
+    keys: ["vision"],
+    answer: `The vision listed on this website is: ${company.vision}`,
+  },
+  {
+    keys: ["commitment"],
+    answer: `The commitment listed on this website is: ${company.commitment}`,
+  },
+  {
+    keys: [
+      "service",
+      "services",
+      "product",
+      "products",
+      "offer",
+      "what can you",
+      "what do you provide",
+      "what do you sell",
+      "what do you supply",
+    ],
+    answer: `The Products and Services section of this website lists: ${services
       .map((item) => item.title)
       .join(", ")}.`,
   },
@@ -99,48 +99,42 @@ const topics: Topic[] = [
       "location",
       "where",
     ],
-    answer: `The Contact section of this website lists ${company.email}, ${company.phone}, and ${company.address}. You can also send a message here.`,
+    answer: `The Contact section of this website lists ${company.legalName}, ${company.address}, and ${company.email}${hasVerifiedPhone() ? `, ${company.phone}` : ""}. You can also send a message here.`,
   },
   {
-    keys: ["value", "values"],
-    answer: `The company values listed on this website are ${valuesOnSite
+    keys: ["why us", "why gold", "choose you", "why choose"],
+    answer: `The Why Choose Us section of this website lists: ${reasonsOnSite
       .map((item) => `${item.title}: ${item.text}`)
-      .join(" ")}`,
-  },
-  {
-    keys: ["why us", "why gold", "choose you", "our approach", "approach"],
-    answer: `${approachOnSite} The website also lists ${reasonsOnSite
-      .map((item) => `${item.title}: ${item.text}`)
-      .join(" ")}`,
+      .join(" ")} ${company.commitment}`,
   },
   {
     keys: ["project", "projects", "work", "portfolio", "featured"],
-    answer: `The Featured Projects section of this website currently shows: ${projects
-      .map((item) => `${item.title} (${item.category})`)
+    answer: `This website does not list named projects or clients. The Industries We Serve section lists: ${industries
+      .map((item) => item.title)
       .join(", ")}.`,
   },
   {
-    keys: ["industry", "focus", "what we do", "supply solutions", "business and supply"],
-    answer: `${company.name} is listed on this website as focusing on ${company.industry}. ${company.description}`,
-  },
-  {
-    keys: ["how you work", "known for", "strength"],
-    answer: `This website lists what the company is known for: ${technologies
-      .map((item) => item.name)
-      .join(", ")}.`,
-  },
-  {
-    keys: ["how you start", "process", "steps", "how do you work"],
-    answer: `The About section of this website describes this approach: ${stepsOnSite.join(" ")}`,
+    keys: [
+      "industry",
+      "industries",
+      "customers",
+      "clients",
+      "who do you serve",
+      "who you serve",
+      "government",
+      "institutional",
+    ],
+    answer: `The Industries We Serve section of this website lists: ${industries
+      .map((item) => item.title)
+      .join(", ")}. ${company.description}`,
   },
   {
     keys: ["cookie", "cookies", "privacy"],
-    answer:
-      "This website uses essential cookies to keep the site working. Optional analytics cookies are used only if they are accepted. You can read the Cookie Policy from the footer of this website.",
+    answer: `The Privacy Policy on this website is effective ${company.privacyEffectiveDate}. Inquiries and privacy requests can be sent to ${company.email}. The listed telephone number is ${company.phone}. You can open the Privacy Policy from the footer of this website.`,
   },
   {
     keys: ["entity", "corporation", "organization type"],
-    answer: `This website lists the organization as a ${company.entityType} under the legal name ${company.legalName}.`,
+    answer: `This website lists the legal status as a ${company.entityType}. The legal company name is ${company.legalName}, and the trade name is ${company.tradeName}.`,
   },
 ];
 
@@ -168,7 +162,7 @@ export function manilaGreeting(): string {
 }
 
 export function buildWelcomeMessage(): string {
-  return `${manilaGreeting()}. You can ask about Gold Mans Supply Corporation, or send a message with any information you would like the company to receive.`;
+  return `${manilaGreeting()}. You can ask about Goldman’s Supply Corporation, or send a message with any information you would like the company to receive.`;
 }
 
 function normalize(text: string): string {
@@ -215,37 +209,19 @@ function matchNamedContent(value: string): string | null {
     return value.includes(name) || value.includes(name.replace("&", "and"));
   });
   if (service) {
-    return `${service.title} is listed in the Services section of this website: ${service.description}`;
+    return `${service.title} is listed in the Products and Services section of this website: ${service.description}`;
   }
 
-  const project = projects.find((item) => {
-    const title = item.title.toLowerCase();
-    const category = item.category.toLowerCase();
-    return value.includes(title) || (value.includes(category) && value.includes("project"));
-  });
-  if (project) {
-    return `${project.title} is shown in Featured Projects on this website. ${project.description}`;
-  }
-
-  const valueItem = valuesOnSite.find((item) =>
-    value.includes(item.title.toLowerCase()),
-  );
-  if (valueItem) {
-    return `${valueItem.title} is listed under company values on this website: ${valueItem.text}`;
+  const industry = industries.find((item) => value.includes(item.title.toLowerCase()));
+  if (industry) {
+    return `${industry.title} is listed in Industries We Serve on this website: ${industry.description}`;
   }
 
   const reason = reasonsOnSite.find((item) =>
     value.includes(item.title.toLowerCase()),
   );
   if (reason) {
-    return `${reason.title} is listed on this website: ${reason.text}`;
-  }
-
-  const strength = technologies.find((item) =>
-    value.includes(item.name.toLowerCase()),
-  );
-  if (strength) {
-    return `${strength.name} is listed on this website under what the company is known for.`;
+    return `${reason.title} is listed in Why Choose Us on this website: ${reason.text}`;
   }
 
   return null;
@@ -293,11 +269,11 @@ export function answerCompanyQuestion(text: string): string | null {
 }
 
 export function unknownAnswer(): string {
-  return "That detail is not listed on this website. I can only answer from the information published here. You can send a message with your question or any other information, and Gold Mans Supply Corporation can follow up.";
+  return "That detail is not listed on this website. I can only answer from the information published here. You can send a message with your question or any other information, and Goldman’s Supply Corporation can follow up.";
 }
 
 export function composePrompt(): string {
-  return "Please share your name, email, and the information you would like Gold Mans Supply Corporation to receive.";
+  return "Please share your name, email, and the information you would like Goldman’s Supply Corporation to receive.";
 }
 
 export function replyPauseMs(text: string, reduce: boolean | null): number {

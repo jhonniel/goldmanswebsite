@@ -65,7 +65,7 @@ export default function CookiePolicy({
           </button>
         </div>
         <p className="mt-4 text-sm leading-relaxed text-ink-muted">
-          This Cookie Policy explains how Gold Mans Supply Corporation uses
+          This Cookie Policy explains how Goldman’s Supply Corporation uses
           cookies on this website.
         </p>
 
@@ -86,7 +86,7 @@ export default function CookiePolicy({
           <li>
             <strong className="text-ink">Analytics cookies.</strong> These are
             optional. If you accept them, they may be used to understand how
-            visitors use the Gold Mans Supply Corporation website. They are
+            visitors use the Goldman’s Supply Corporation website. They are
             not set unless you choose Accept cookies.
           </li>
         </ul>
@@ -109,7 +109,7 @@ export default function CookiePolicy({
 
         <h3 className="mt-6 text-lg text-ink">Contact</h3>
         <p className="mt-2 text-sm leading-relaxed text-ink-muted">
-          For questions about cookies on this website, email{" "}
+          For questions about cookies or privacy on this website, email{" "}
           <a
             className="text-gold-bright underline underline-offset-2"
             href={`mailto:${company.email}`}

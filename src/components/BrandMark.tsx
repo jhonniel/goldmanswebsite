@@ -1,3 +1,5 @@
+import { company } from "../config/company";
+
 type BrandMarkProps = {
   size?: "sm" | "md";
 };
@@ -20,11 +22,11 @@ export default function BrandMark({ size = "md" }: BrandMarkProps) {
         <span
           className={`font-serif text-ink ${
             compact
-              ? "text-[11px] tracking-[0.18em]"
-              : "text-[11px] tracking-[0.16em] sm:text-[13px] sm:tracking-[0.22em]"
+              ? "text-[11px] tracking-[0.12em]"
+              : "text-[10px] tracking-[0.12em] sm:text-[13px] sm:tracking-[0.16em]"
           }`}
         >
-          GOLD MANS
+          {company.wordmarkPrimary}
         </span>
         <span
           className={`mt-1 text-gold-bright ${
@@ -33,7 +35,7 @@ export default function BrandMark({ size = "md" }: BrandMarkProps) {
               : "text-[7px] tracking-[0.12em] sm:text-[9px] sm:tracking-[0.18em]"
           }`}
         >
-          SUPPLY CORPORATION
+          {company.wordmarkSecondary}
         </span>
       </span>
     </span>

@@ -8,14 +8,14 @@ export default function Projects() {
       <div className="container-page">
         <Reveal className="max-w-2xl">
           <p className="text-[11px] tracking-[0.18em] text-gold-bright">
-            Explore selected solutions and projects from Gold Mans Supply
+            Explore selected solutions and projects from Goldman’s Supply
             Corporation.
           </p>
           <h2 className="mt-4 text-[1.75rem] font-normal tracking-[-0.03em] text-ink sm:text-4xl">
             Featured Projects
           </h2>
           <p className="mt-4 text-base leading-relaxed text-ink-muted">
-            Selected work that reflects how Gold Mans Supply Corporation
+            Selected work that reflects how Goldman’s Supply Corporation
             supports businesses through supply, service, and practical
             solutions.
           </p>

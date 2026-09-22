@@ -7,7 +7,7 @@ export default function HeroVisual() {
         viewBox="0 0 400 400"
         className="relative z-10 h-full w-full"
         role="img"
-        aria-label="Abstract gold network visualization for Gold Mans Supply Corporation"
+        aria-label="Abstract gold network visualization for Goldman’s Supply Corporation"
       >
         <defs>
           <radialGradient id="orb" cx="34%" cy="30%" r="70%">

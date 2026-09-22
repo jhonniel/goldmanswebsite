@@ -1,29 +1,43 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 import { useState, type FormEvent } from "react";
-import { company } from "../config/company";
+import {
+  company,
+  companyAddressLines,
+  hasVerifiedPhone,
+} from "../config/company";
 import { submitInquiry, type InquiryPayload } from "../lib/contact";
 import Reveal from "./Reveal";
 
-type FieldName = keyof InquiryPayload;
-type FormState = InquiryPayload & { website: string };
-type FormErrors = Partial<Record<FieldName, string>>;
+type FieldName = keyof Omit<InquiryPayload, "website" | "organization" | "source" | "startedAt" | "consent">;
+type FormState = {
+  fullName: string;
+  email: string;
+  phone: string;
+  subject: string;
+  message: string;
+  website: string;
+  consent: boolean;
+  startedAt: number;
+};
+type FormErrors = Partial<Record<FieldName | "consent", string>>;
 type Status = "idle" | "submitting" | "success" | "mailto" | "error";
 
-const initialState: FormState = {
+const initialState = (): FormState => ({
   fullName: "",
   email: "",
-  organization: "",
   phone: "",
   subject: "",
   message: "",
   website: "",
-};
+  consent: false,
+  startedAt: Date.now(),
+});
 
 function validate(values: FormState): FormErrors {
   const errors: FormErrors = {};
 
   if (values.fullName.trim().length < 2) {
-    errors.fullName = "Please enter your full name.";
+    errors.fullName = "Please enter your name.";
   }
 
   if (!values.email.trim()) {
@@ -32,11 +46,10 @@ function validate(values: FormState): FormErrors {
     errors.email = "Please enter a valid email address.";
   }
 
-  if (
-    values.phone.trim() &&
-    !/^[+0-9][0-9\s().-]{6,}$/.test(values.phone.trim())
-  ) {
-    errors.phone = "Please enter a valid contact number.";
+  if (!values.phone.trim()) {
+    errors.phone = "Please enter your telephone number.";
+  } else if (!/^[+0-9][0-9\s().-]{6,}$/.test(values.phone.trim())) {
+    errors.phone = "Please enter a valid telephone number.";
   }
 
   if (!values.subject.trim()) {
@@ -47,6 +60,10 @@ function validate(values: FormState): FormErrors {
     errors.message = "Please enter a message of at least 10 characters.";
   }
 
+  if (!values.consent) {
+    errors.consent = "Please confirm that we may process your inquiry.";
+  }
+
   return errors;
 }
 
@@ -55,7 +72,7 @@ export default function Contact() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [status, setStatus] = useState<Status>("idle");
 
-  const onChange = (name: keyof FormState, value: string) => {
+  const onChange = (name: keyof FormState, value: string | boolean) => {
     setValues((current) => ({ ...current, [name]: value }));
   };
 
@@ -79,15 +96,17 @@ export default function Contact() {
         {
           fullName: values.fullName.trim(),
           email: values.email.trim(),
-          organization: values.organization.trim(),
           phone: values.phone.trim(),
           subject: values.subject.trim(),
           message: values.message.trim(),
+          consent: values.consent,
+          startedAt: values.startedAt,
+          source: "contact-form",
         },
         company.email,
       );
       setStatus(result.status === "sent" ? "success" : "mailto");
-      setValues(initialState);
+      setValues(initialState());
     } catch {
       setStatus("error");
     }
@@ -98,24 +117,42 @@ export default function Contact() {
       <div className="container-page grid gap-12 lg:grid-cols-[0.84fr_1.16fr] lg:gap-16">
         <Reveal>
           <p className="text-[11px] tracking-[0.18em] text-gold-bright">
-            COMPANY CONTACT
+            CONTACT US
           </p>
           <h2 className="mt-4 text-[1.75rem] font-normal tracking-[-0.03em] text-pretty text-ink sm:text-4xl">
-            Contact Gold Mans Supply Corporation
+            Contact Us
           </h2>
           <p className="mt-4 text-base leading-relaxed text-ink-muted">
-            Have a project, requirement, or business need? Get in touch with
-            Gold Mans Supply Corporation and let's start a conversation.
+            For supplies, equipment, or related requirements, send an inquiry
+            to Goldman’s Supply Corporation.
           </p>
 
           <address className="mt-8 not-italic">
-            <p className="font-serif tracking-[0.18em] text-ink">
-              GOLD MANS
-            </p>
-            <p className="mt-1 text-sm tracking-[0.16em] text-gold-bright">
-              SUPPLY CORPORATION
+            <p className="text-sm font-medium tracking-[0.04em] text-ink">
+              {company.legalName}
             </p>
             <ul className="mt-6 space-y-4 text-sm">
+              <li className="flex min-w-0 items-start gap-3">
+                <MapPin size={16} className="mt-0.5 shrink-0 text-gold-bright" />
+                <span>
+                  {companyAddressLines().map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
+                </span>
+              </li>
+              {hasVerifiedPhone() ? (
+                <li className="flex min-w-0 items-start gap-3">
+                  <Phone size={16} className="mt-0.5 shrink-0 text-gold-bright" />
+                  <a
+                    href={`tel:${company.phone.replace(/\s/g, "")}`}
+                    className="text-ink-muted hover:text-ink"
+                  >
+                    {company.phone}
+                  </a>
+                </li>
+              ) : null}
               <li className="flex min-w-0 items-start gap-3">
                 <Mail size={16} className="mt-0.5 shrink-0 text-gold-bright" />
                 <a
@@ -124,19 +161,6 @@ export default function Contact() {
                 >
                   {company.email}
                 </a>
-              </li>
-              <li className="flex min-w-0 items-start gap-3">
-                <Phone size={16} className="mt-0.5 shrink-0 text-gold-bright" />
-                <a
-                  href={`tel:${company.phone.replace(/\s/g, "")}`}
-                  className="text-ink-muted hover:text-ink"
-                >
-                  {company.phone}
-                </a>
-              </li>
-              <li className="flex min-w-0 items-start gap-3">
-                <MapPin size={16} className="mt-0.5 shrink-0 text-gold-bright" />
-                <span>{company.address}</span>
               </li>
             </ul>
           </address>
@@ -163,7 +187,7 @@ export default function Contact() {
             <div className="grid gap-4 sm:grid-cols-2">
               <Field
                 id="fullName"
-                label="Full Name"
+                label="Name"
                 autoComplete="name"
                 value={values.fullName}
                 error={errors.fullName}
@@ -181,31 +205,23 @@ export default function Contact() {
                 required
               />
               <Field
-                id="organization"
-                label="Company / Organization"
-                autoComplete="organization"
-                value={values.organization}
-                onChange={(value) => onChange("organization", value)}
-              />
-              <Field
                 id="phone"
-                label="Contact Number"
+                label="Telephone"
                 type="tel"
                 autoComplete="tel"
                 value={values.phone}
                 error={errors.phone}
                 onChange={(value) => onChange("phone", value)}
+                required
               />
-              <div className="sm:col-span-2">
-                <Field
-                  id="subject"
-                  label="Subject"
-                  value={values.subject}
-                  error={errors.subject}
-                  onChange={(value) => onChange("subject", value)}
-                  required
-                />
-              </div>
+              <Field
+                id="subject"
+                label="Subject"
+                value={values.subject}
+                error={errors.subject}
+                onChange={(value) => onChange("subject", value)}
+                required
+              />
               <div className="sm:col-span-2">
                 <label htmlFor="message" className="mb-2 block text-sm text-ink">
                   Message
@@ -230,6 +246,27 @@ export default function Contact() {
               </div>
             </div>
 
+            <label className="mt-5 flex items-start gap-3 text-sm text-ink-muted">
+              <input
+                type="checkbox"
+                className="mt-1 size-4 shrink-0 accent-[var(--color-gold-bright)]"
+                checked={values.consent}
+                onChange={(event) => onChange("consent", event.target.checked)}
+                required
+              />
+              <span>
+                I agree that Goldman’s Supply Corporation may process this
+                inquiry as described in the{" "}
+                <a href="#privacy" className="text-gold-bright underline underline-offset-2">
+                  Privacy Policy
+                </a>
+                .
+              </span>
+            </label>
+            {errors.consent ? (
+              <p className="mt-2 text-sm text-[#e2a0a0]">{errors.consent}</p>
+            ) : null}
+
             <button
               type="submit"
               className="btn-primary mt-6 w-full sm:w-auto"
@@ -241,7 +278,7 @@ export default function Contact() {
             <div className="mt-4 min-h-6 text-sm" aria-live="polite">
               {status === "success" ? (
                 <p className="text-gold-bright">
-                  Thank you. Your inquiry has been sent to Gold Mans Supply
+                  Thank you. Your inquiry has been sent to Goldman’s Supply
                   Corporation.
                 </p>
               ) : null}

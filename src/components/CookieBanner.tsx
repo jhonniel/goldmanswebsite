@@ -36,7 +36,7 @@ export default function CookieBanner({
           Cookies on this website
         </h2>
         <p id="cookie-desc" className="mt-2 max-w-3xl text-sm leading-relaxed text-ink-muted">
-          Gold Mans Supply Corporation uses essential cookies to keep this
+          Goldman’s Supply Corporation uses essential cookies to keep this
           website working. Optional analytics cookies are used only if you
           accept them, to help us understand how the site is used. Read the{" "}
           <button

@@ -1,6 +1,9 @@
 import type { ComponentType } from "react";
-import { company, getActiveSocialLinks, type SocialNetwork } from "../config/company";
-import BrandMark from "./BrandMark";
+import {
+  company,
+  getActiveSocialLinks,
+  type SocialNetwork,
+} from "../config/company";
 
 const socialIcons: Record<
   SocialNetwork,
@@ -14,10 +17,11 @@ const socialIcons: Record<
 
 const footerLinks = [
   { href: "#home", label: "Home" },
-  { href: "#about", label: "Company" },
-  { href: "#services", label: "Services" },
-  { href: "#projects", label: "Projects" },
-  { href: "#contact", label: "Contact" },
+  { href: "#about", label: "About Us" },
+  { href: "#services", label: "Products and Services" },
+  { href: "#industries", label: "Industries" },
+  { href: "#contact", label: "Contact Us" },
+  { href: "#privacy", label: "Privacy Policy" },
 ];
 
 type FooterProps = {
@@ -32,16 +36,13 @@ export default function Footer({ onManageCookies, onOpenCookiePolicy }: FooterPr
     <footer className="relative border-t border-white/70 bg-white/80 pt-12 pb-[calc(5.75rem+env(safe-area-inset-bottom,0px))] sm:pt-14 sm:pb-10">
       <div className="container-page grid min-w-0 gap-10 md:grid-cols-2 lg:grid-cols-4">
         <div className="lg:col-span-2">
-          <a href="#home" className="inline-block">
-            <span className="sr-only">Gold Mans Supply Corporation home</span>
-            <span aria-hidden="true">
-              <BrandMark />
-            </span>
-          </a>
-          <p className="mt-5 max-w-md text-sm leading-relaxed text-ink-muted">
-            Official website of Gold Mans Supply Corporation, a company focused
-            on business and supply solutions for organizations.
+          <p className="text-sm font-medium tracking-[0.04em] text-ink">
+            {company.legalName}
           </p>
+          <p className="mt-2 max-w-md text-sm leading-relaxed text-ink-muted">
+            {company.dbaPhrase}
+          </p>
+          <p className="mt-2 text-sm text-ink-muted">{company.location}</p>
         </div>
 
         <div>
@@ -80,7 +81,7 @@ export default function Footer({ onManageCookies, onOpenCookiePolicy }: FooterPr
                 {company.phone}
               </a>
             </li>
-            <li>{company.address}</li>
+            <li>{company.location}</li>
           </ul>
           {social.length > 0 ? (
             <ul className="mt-5 flex gap-3">
@@ -106,8 +107,11 @@ export default function Footer({ onManageCookies, onOpenCookiePolicy }: FooterPr
       </div>
 
       <div className="container-page mt-12 flex flex-col gap-3 border-t border-white/40 pt-6 text-xs text-ink-muted sm:flex-row sm:items-center sm:justify-between">
-        <p>© 2026 Gold Mans Supply Corporation. All rights reserved.</p>
+        <p>© 2026 Goldman’s Supply Corporation. All rights reserved.</p>
         <nav aria-label="Legal" className="flex flex-wrap gap-x-4 gap-y-2">
+          <a className="hover:text-ink" href="#privacy">
+            Privacy Policy
+          </a>
           <button type="button" className="text-left hover:text-ink" onClick={onOpenCookiePolicy}>
             Cookie Policy
           </button>
@@ -117,9 +121,6 @@ export default function Footer({ onManageCookies, onOpenCookiePolicy }: FooterPr
           <a className="hover:text-ink" href="/sitemap.xml">
             Sitemap
           </a>
-          <span>
-            {company.legalName} · {company.address}
-          </span>
         </nav>
       </div>
     </footer>

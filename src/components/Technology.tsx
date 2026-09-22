@@ -35,7 +35,7 @@ export default function Technology() {
             What the Company Is Known For
           </h2>
           <p className="mt-4 text-base leading-relaxed text-ink-muted">
-            Gold Mans Supply Corporation focuses on dependable service, clear
+            Goldman’s Supply Corporation focuses on dependable service, clear
             communication, and practical solutions that support everyday
             business needs.
           </p>

@@ -7,10 +7,10 @@ import BrandMark from "./BrandMark";
 
 const links = [
   { href: "#home", label: "Home" },
-  { href: "#about", label: "Company" },
-  { href: "#services", label: "Services" },
-  { href: "#projects", label: "Projects" },
-  { href: "#contact", label: "Contact" },
+  { href: "#about", label: "About Us" },
+  { href: "#services", label: "Products and Services" },
+  { href: "#industries", label: "Industries" },
+  { href: "#contact", label: "Contact Us" },
 ] as const;
 
 const menuList = {
@@ -122,13 +122,13 @@ export default function Navbar() {
           aria-label="Primary"
         >
         <a href="#home" className="min-w-0 shrink-0" onClick={close}>
-          <span className="sr-only">Gold Mans Supply Corporation home</span>
+          <span className="sr-only">Goldman’s Supply Corporation home</span>
           <span aria-hidden="true">
             <BrandMark />
           </span>
         </a>
 
-        <ul className="hidden items-center gap-7 lg:flex">
+        <ul className="hidden items-center gap-5 xl:gap-7 lg:flex">
           {links.map((link) => (
             <li key={link.href}>
               <a

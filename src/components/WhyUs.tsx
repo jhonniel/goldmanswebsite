@@ -33,10 +33,10 @@ export default function WhyUs() {
             OUR APPROACH
           </p>
           <h2 className="mt-4 text-[1.75rem] font-normal tracking-[-0.03em] text-pretty text-ink sm:text-4xl">
-            Why Gold Mans Supply Corporation
+            Why Goldman’s Supply Corporation
           </h2>
           <p className="mt-4 text-base leading-relaxed text-ink-muted">
-            Gold Mans Supply Corporation is built around a calm, professional
+            Goldman’s Supply Corporation is built around a calm, professional
             way of working: clear communication, considered solutions, and
             long-term support.
           </p>

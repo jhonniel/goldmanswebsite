@@ -11,13 +11,13 @@ type CompanyFact = {
 
 const facts: CompanyFact[] = [
   {
-    label: "Company",
+    label: "Legal Company Name",
     value: company.legalName,
     icon: Building2,
   },
   {
-    label: "What We Do",
-    value: company.industry,
+    label: "Trade Name",
+    value: company.tradeName,
     icon: Briefcase,
   },
   {

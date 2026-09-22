@@ -33,14 +33,18 @@ type Compose = {
   email: string;
   message: string;
   website: string;
+  consent: boolean;
+  startedAt: number;
 };
 
-const initialCompose: Compose = {
+const initialCompose = (): Compose => ({
   fullName: "",
   email: "",
   message: "",
   website: "",
-};
+  consent: false,
+  startedAt: Date.now(),
+});
 
 function createId() {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
@@ -68,7 +72,7 @@ export default function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState("");
   const [composing, setComposing] = useState(false);
-  const [compose, setCompose] = useState<Compose>(initialCompose);
+  const [compose, setCompose] = useState<Compose>(() => initialCompose());
   const [composeError, setComposeError] = useState("");
   const [sending, setSending] = useState(false);
   const [typing, setTyping] = useState(false);
@@ -155,6 +159,7 @@ export default function ChatWidget() {
     setCompose((current) => ({
       ...current,
       message: seed || current.message,
+      startedAt: Date.now(),
     }));
     void speak(composePrompt());
   };
@@ -205,9 +210,9 @@ export default function ChatWidget() {
 
     if (compose.website.trim()) {
       setComposing(false);
-      setCompose(initialCompose);
+      setCompose(initialCompose());
       void speak(
-        "Thank you. Your message has been received by Gold Mans Supply Corporation.",
+        "Thank you. Your message has been received by Goldman’s Supply Corporation.",
       );
       return;
     }
@@ -227,6 +232,11 @@ export default function ChatWidget() {
       return;
     }
 
+    if (!compose.consent) {
+      setComposeError("Please confirm that we may process this message.");
+      return;
+    }
+
     setComposeError("");
     setSending(true);
 
@@ -235,20 +245,21 @@ export default function ChatWidget() {
         {
           fullName: compose.fullName.trim(),
           email: compose.email.trim(),
-          organization: "",
           phone: "",
           subject: "Website chat message",
           message: compose.message.trim(),
+          consent: true,
+          startedAt: compose.startedAt,
           source: "website-chat",
         },
         company.email,
       );
 
       setComposing(false);
-      setCompose(initialCompose);
+      setCompose(initialCompose());
       void speak(
         result.status === "sent"
-          ? "Thank you. Your message has been sent to Gold Mans Supply Corporation."
+          ? "Thank you. Your message has been sent to Goldman’s Supply Corporation."
           : `If your email application did not open, please send your message to ${company.email}.`,
       );
     } catch {
@@ -287,7 +298,7 @@ export default function ChatWidget() {
               <p id={titleId} className="text-sm font-medium text-pretty text-ink">
                 <span className="sm:hidden">Company chat</span>
                 <span className="hidden sm:inline">
-                  Chat with Gold Mans Supply Corporation
+                  Chat with Goldman’s Supply Corporation
                 </span>
               </p>
               <p className="mt-0.5 text-xs text-ink-muted">
@@ -331,7 +342,7 @@ export default function ChatWidget() {
             {typing ? (
               <div
                 className="mr-8 rounded-2xl rounded-bl-md bg-white/55 px-3 py-3"
-                aria-label="Gold Mans Supply Corporation is typing"
+                aria-label="Goldman’s Supply Corporation is typing"
               >
                 <span className="chat-typing" aria-hidden="true">
                   <span />
@@ -436,6 +447,24 @@ export default function ChatWidget() {
               {composeError ? (
                 <p className="mt-2 text-xs text-[#c45c5c]">{composeError}</p>
               ) : null}
+              <label className="mt-3 flex items-start gap-2 text-xs text-ink-muted">
+                <input
+                  type="checkbox"
+                  className="mt-0.5 size-3.5 shrink-0 accent-[var(--color-gold-bright)]"
+                  checked={compose.consent}
+                  onChange={(event) =>
+                    setCompose((current) => ({
+                      ...current,
+                      consent: event.target.checked,
+                    }))
+                  }
+                  required
+                />
+                <span>
+                  I agree that this message may be processed as described in the
+                  Privacy Policy.
+                </span>
+              </label>
               <div className="mt-3 flex gap-2">
                 <button
                   type="submit"

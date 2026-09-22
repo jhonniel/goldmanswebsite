@@ -2,50 +2,56 @@ export type Service = {
   id: string;
   title: string;
   description: string;
-  icon: "briefcase" | "boxes" | "handshake" | "sliders" | "headset" | "compass";
+  icon:
+    | "office"
+    | "computer"
+    | "construction"
+    | "systems"
+    | "mobile"
+    | "digital";
 };
 
 export const services: Service[] = [
   {
-    id: "business-solutions",
-    title: "Business Solutions",
+    id: "office-school-general-supplies",
+    title: "Office, school and general supplies",
     description:
-      "Solutions designed to support everyday business operations and requirements.",
-    icon: "briefcase",
+      "Everyday office, school, and general supplies for government, business, and institutional use.",
+    icon: "office",
   },
   {
-    id: "supply-procurement",
-    title: "Supply & Procurement",
+    id: "computer-equipment",
+    title: "Computer equipment and accessories",
     description:
-      "Reliable sourcing and supply solutions tailored to organizational needs.",
-    icon: "boxes",
+      "Computers and related accessories for offices, schools, and other workplaces.",
+    icon: "computer",
   },
   {
-    id: "operations-support",
-    title: "Operations Support",
+    id: "construction-maintenance-supplies",
+    title: "Construction and maintenance supplies",
     description:
-      "Support that helps organizations keep their day-to-day work running smoothly.",
-    icon: "handshake",
+      "Construction materials and maintenance supplies for operational and project needs.",
+    icon: "construction",
   },
   {
-    id: "custom-solutions",
-    title: "Custom Solutions",
+    id: "information-systems-web-development",
+    title: "Information systems and web development",
     description:
-      "Flexible solutions designed around specific client requirements.",
-    icon: "sliders",
+      "Practical web systems and information systems tailored to client requirements.",
+    icon: "systems",
   },
   {
-    id: "support-maintenance",
-    title: "Support & Maintenance",
+    id: "mobile-application-development",
+    title: "Mobile application development",
     description:
-      "Ongoing assistance to help clients maintain reliable operations.",
-    icon: "headset",
+      "Mobile applications designed to support government, business, and community work.",
+    icon: "mobile",
   },
   {
-    id: "business-consulting",
-    title: "Business Consulting",
+    id: "digital-government-business-solutions",
+    title: "Digital government and business solutions",
     description:
-      "Practical guidance focused on identifying requirements and appropriate solutions.",
-    icon: "compass",
+      "Digital solutions that help government agencies and businesses operate more efficiently.",
+    icon: "digital",
   },
 ];
