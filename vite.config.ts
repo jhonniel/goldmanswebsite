@@ -3,7 +3,8 @@ import path from "node:path";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig, loadEnv } from "vite";
-import type { Plugin } from "vite";
+import type { Connect, Plugin } from "vite";
+import { handleInquiry, parsePayload } from "./api/sendInquiry.js";
 
 function writeSeoFiles(siteUrl: string) {
   const publicDir = path.resolve(process.cwd(), "public");
@@ -68,6 +69,71 @@ function seoPlugin(siteUrl: string, googleVerification: string): Plugin {
   };
 }
 
+function applyContactEnv(env: Record<string, string | undefined>) {
+  for (const key of [
+    "RESEND_API_KEY",
+    "CONTACT_TO_EMAIL",
+    "CONTACT_FROM_EMAIL",
+  ] as const) {
+    if (env[key]) {
+      process.env[key] = env[key];
+    }
+  }
+}
+
+function readJsonBody(req: Connect.IncomingMessage): Promise<unknown> {
+  return new Promise((resolve, reject) => {
+    const chunks: Buffer[] = [];
+    req.on("data", (chunk) => {
+      chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
+    });
+    req.on("end", () => {
+      const raw = Buffer.concat(chunks).toString("utf8");
+      if (!raw) {
+        resolve({});
+        return;
+      }
+      try {
+        resolve(JSON.parse(raw));
+      } catch (error) {
+        reject(error);
+      }
+    });
+    req.on("error", reject);
+  });
+}
+
+function contactApiPlugin(): Plugin {
+  return {
+    name: "gold-mans-contact-api",
+    configureServer(server) {
+      server.middlewares.use(async (req, res, next) => {
+        const url = req.url?.split("?")[0];
+        if (req.method !== "POST" || url !== "/api/contact") {
+          next();
+          return;
+        }
+
+        try {
+          const body = await readJsonBody(req);
+          const ip =
+            typeof req.headers["x-forwarded-for"] === "string"
+              ? req.headers["x-forwarded-for"].split(",")[0].trim()
+              : req.socket.remoteAddress || "unknown";
+          const result = await handleInquiry(parsePayload(body), ip);
+          res.statusCode = result.code;
+          res.setHeader("Content-Type", "application/json");
+          res.end(JSON.stringify(result.body));
+        } catch {
+          res.statusCode = 502;
+          res.setHeader("Content-Type", "application/json");
+          res.end(JSON.stringify({ error: "Unable to send inquiry." }));
+        }
+      });
+    },
+  };
+}
+
 function resolveSiteUrl(env: Record<string, string | undefined>): string {
   const explicit = env.VITE_SITE_URL?.trim();
   if (explicit) {
@@ -96,10 +162,16 @@ function resolveSiteUrl(env: Record<string, string | undefined>): string {
 
 export default defineConfig(({ mode }) => {
   const env = { ...process.env, ...loadEnv(mode, process.cwd(), "") };
+  applyContactEnv(env);
   const siteUrl = resolveSiteUrl(env);
   const googleVerification = env.VITE_GOOGLE_SITE_VERIFICATION?.trim() || "";
 
   return {
-    plugins: [react(), tailwindcss(), seoPlugin(siteUrl, googleVerification)],
+    plugins: [
+      react(),
+      tailwindcss(),
+      seoPlugin(siteUrl, googleVerification),
+      contactApiPlugin(),
+    ],
   };
 });

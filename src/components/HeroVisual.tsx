@@ -7,17 +7,17 @@ export default function HeroVisual() {
         viewBox="0 0 400 400"
         className="relative z-10 h-full w-full"
         role="img"
-        aria-label="Abstract gold network visualization for Goldman’s Supply Corporation"
+        aria-label="Abstract network visualization for Goldman’s Supply Corporation"
       >
         <defs>
           <radialGradient id="orb" cx="34%" cy="30%" r="70%">
-            <stop offset="0%" stopColor="#f7edd4" />
-            <stop offset="42%" stopColor="#d4b56a" />
-            <stop offset="100%" stopColor="#8d6b24" />
+            <stop offset="0%" stopColor="#dbe4ff" />
+            <stop offset="42%" stopColor="#3d5cf0" />
+            <stop offset="100%" stopColor="#1529b0" />
           </radialGradient>
           <linearGradient id="glass-ring" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#ffffff" stopOpacity="0.15" />
-            <stop offset="50%" stopColor="#c4a35a" stopOpacity="0.85" />
+            <stop offset="50%" stopColor="#2f4de8" stopOpacity="0.85" />
             <stop offset="100%" stopColor="#ffffff" stopOpacity="0.1" />
           </linearGradient>
         </defs>
@@ -41,7 +41,7 @@ export default function HeroVisual() {
             rx="104"
             ry="150"
             fill="none"
-            stroke="#c4a35a"
+            stroke="#2f4de8"
             strokeOpacity="0.28"
             strokeWidth="1"
             transform="rotate(22 200 200)"
@@ -58,13 +58,13 @@ export default function HeroVisual() {
         <circle cx="200" cy="200" r="70" fill="#fff" fillOpacity="0.12" />
         <circle cx="176" cy="176" r="16" fill="#fff" fillOpacity="0.32" />
 
-        <g stroke="#c4a35a" strokeOpacity="0.45" strokeWidth="0.9">
+        <g stroke="#2f4de8" strokeOpacity="0.45" strokeWidth="0.9">
           <line x1="200" y1="200" x2="86" y2="118" />
           <line x1="200" y1="200" x2="318" y2="96" />
           <line x1="200" y1="200" x2="328" y2="252" />
           <line x1="200" y1="200" x2="84" y2="274" />
         </g>
-        <g fill="#8d6b24">
+        <g fill="#1d3fe0">
           <circle cx="86" cy="118" r="3.4" />
           <circle cx="318" cy="96" r="3.4" />
           <circle cx="328" cy="252" r="3.4" />
@@ -83,9 +83,9 @@ export default function HeroVisual() {
             stroke="#ffffff"
             strokeOpacity="0.7"
           />
-          <rect x="272" y="164" width="36" height="4" rx="2" fill="#8d6b24" fillOpacity="0.7" />
-          <rect x="272" y="174" width="54" height="3" rx="1.5" fill="#c4a35a" fillOpacity="0.35" />
-          <rect x="272" y="182" width="44" height="3" rx="1.5" fill="#c4a35a" fillOpacity="0.22" />
+          <rect x="272" y="164" width="36" height="4" rx="2" fill="#1d3fe0" fillOpacity="0.7" />
+          <rect x="272" y="174" width="54" height="3" rx="1.5" fill="#2f4de8" fillOpacity="0.35" />
+          <rect x="272" y="182" width="44" height="3" rx="1.5" fill="#2f4de8" fillOpacity="0.22" />
         </g>
       </svg>
     </div>

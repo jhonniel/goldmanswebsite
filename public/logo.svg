@@ -1,6 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Goldman’s Supply Corporation">
-  <rect width="64" height="64" rx="14" fill="#F8F6F1"/>
-  <rect x="1" y="1" width="62" height="62" rx="13" fill="none" stroke="#C4A35A" stroke-width="1.25"/>
-  <path d="M44.5 22.5c-2.4-3.6-6.6-5.8-12.1-5.8-9.3 0-15.9 6.4-15.9 15.3 0 8.9 6.6 15.3 15.9 15.3 5.7 0 10-2.3 12.4-6.2" fill="none" stroke="#8D6B24" stroke-width="3.2" stroke-linecap="round"/>
-  <path d="M32.6 32.2h12.8" fill="none" stroke="#C4A35A" stroke-width="3.2" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Goldman Enterprise">
+  <g transform="translate(256 262) scale(2.05)">
+    <polygon points="0,-92 80,-46 80,46 0,92 -80,46 -80,-46" fill="none"/>
+    <polygon points="0,-92 80,-46 0,0 -80,-46" fill="#E8EAEE"/>
+    <path fill="#1D3FE0" d="M-80-46L0 0V92L-80 46Z"/>
+    <path fill="#1633C4" d="M80-46L0 0V92L80 46Z"/>
+    <path fill="#000" d="M-54-8L-14 15V62L-54 39Z"/>
+    <path fill="#1D3FE0" d="M-54 18H-28V32H-48L-36 39V50L-54 39.5Z"/>
+    <path fill="#000" d="M16-6H58L36 7H16Z"/>
+    <path fill="#000" d="M8 18H54L36 29H8Z"/>
+    <path fill="#000" d="M8 48H48L28 60H8Z"/>
+    <path fill="#E8EAEE" d="M-14 15V62L-8 58.5V20Z" opacity="0.9"/>
+    <path fill="#E8EAEE" d="M16-6L36 7V12L16-1Z" opacity="0.85"/>
+    <path fill="#E8EAEE" d="M8 18L36 29V34L8 23Z" opacity="0.75"/>
+  </g>
 </svg>

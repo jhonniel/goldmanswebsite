@@ -37,7 +37,7 @@ export default function CookiePolicy({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-[70] flex items-end justify-center p-3 sm:items-center sm:p-4">
+    <div className="fixed inset-0 z-[70] flex items-end justify-center p-3 pb-[max(0.75rem,env(safe-area-inset-bottom,0px))] sm:items-center sm:p-4">
       <button
         type="button"
         className="absolute inset-0 bg-ink/30"

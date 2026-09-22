@@ -113,13 +113,11 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="section-defer relative scroll-mt-24 py-14 sm:py-24 lg:py-28">
+    <section id="contact" className="section-defer relative scroll-mt-24 bg-paper py-12 pb-24 sm:scroll-mt-28 sm:py-20">
       <div className="container-page grid gap-12 lg:grid-cols-[0.84fr_1.16fr] lg:gap-16">
         <Reveal>
-          <p className="text-[11px] tracking-[0.18em] text-gold-bright">
-            CONTACT US
-          </p>
-          <h2 className="mt-4 text-[1.75rem] font-normal tracking-[-0.03em] text-pretty text-ink sm:text-4xl">
+          <p className="section-kicker">Contact Us</p>
+          <h2 className="section-title">
             Contact Us
           </h2>
           <p className="mt-4 text-base leading-relaxed text-ink-muted">
@@ -168,7 +166,7 @@ export default function Contact() {
 
         <Reveal delay={0.08}>
           <form
-            className="surface-card min-w-0 rounded-3xl p-4 sm:p-8"
+            className="surface-card min-w-0 bg-white p-5 sm:p-8"
             onSubmit={onSubmit}
             noValidate
           >
@@ -279,7 +277,7 @@ export default function Contact() {
               {status === "success" ? (
                 <p className="text-gold-bright">
                   Thank you. Your inquiry has been sent to Goldman’s Supply
-                  Corporation.
+                  Corporation. A confirmation email has also been sent to you.
                 </p>
               ) : null}
               {status === "mailto" ? (

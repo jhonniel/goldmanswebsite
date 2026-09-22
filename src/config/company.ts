@@ -42,7 +42,7 @@ export const company = {
   address:
     "140 Brgy. 13-B Poblacion, De Guzman Street, Barrio Obrero, Davao City 8000, Philippines",
   website: resolveSiteUrl(),
-  logoPath: "/logo.svg",
+  logoPath: "/logo.png",
   ogImagePath: "/og-image.jpg",
   /**
    * Leave social URLs empty until official profiles are confirmed.

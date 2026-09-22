@@ -9,6 +9,7 @@ import Footer from "./components/Footer";
 import Home from "./components/Home";
 import Industries from "./components/Industries";
 import Navbar from "./components/Navbar";
+import News from "./components/News";
 import Privacy from "./components/Privacy";
 import Services from "./components/Services";
 
@@ -53,7 +54,7 @@ export default function App() {
         Skip to main content
       </a>
       <Navbar />
-      <main id="main">
+      <main id="main" className="min-w-0 overflow-x-clip">
         {privacyPage ? (
           <Privacy />
         ) : (
@@ -62,6 +63,7 @@ export default function App() {
             <About />
             <Services />
             <Industries />
+            <News />
             <Contact />
           </>
         )}

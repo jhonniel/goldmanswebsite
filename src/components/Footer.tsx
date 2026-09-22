@@ -1,6 +1,7 @@
 import type { ComponentType } from "react";
 import {
   company,
+  companyAddressLines,
   getActiveSocialLinks,
   type SocialNetwork,
 } from "../config/company";
@@ -19,7 +20,7 @@ const footerLinks = [
   { href: "#home", label: "Home" },
   { href: "#about", label: "About Us" },
   { href: "#services", label: "Products and Services" },
-  { href: "#industries", label: "Industries" },
+  { href: "#industries", label: "Industries We Serve" },
   { href: "#contact", label: "Contact Us" },
   { href: "#privacy", label: "Privacy Policy" },
 ];
@@ -33,29 +34,28 @@ export default function Footer({ onManageCookies, onOpenCookiePolicy }: FooterPr
   const social = getActiveSocialLinks();
 
   return (
-    <footer className="relative border-t border-white/70 bg-white/80 pt-12 pb-[calc(5.75rem+env(safe-area-inset-bottom,0px))] sm:pt-14 sm:pb-10">
+    <footer className="bg-navy pt-12 pb-[calc(5.75rem+env(safe-area-inset-bottom,0px))] text-white sm:pt-14 sm:pb-10">
       <div className="container-page grid min-w-0 gap-10 md:grid-cols-2 lg:grid-cols-4">
         <div className="lg:col-span-2">
-          <p className="text-sm font-medium tracking-[0.04em] text-ink">
+          <p className="text-sm font-semibold tracking-[0.04em]">
             {company.legalName}
           </p>
-          <p className="mt-2 max-w-md text-sm leading-relaxed text-ink-muted">
+          <p className="mt-2 max-w-md text-sm leading-relaxed text-white/75">
             {company.dbaPhrase}
           </p>
-          <p className="mt-2 text-sm text-ink-muted">{company.location}</p>
+          <p className="mt-3 text-sm text-white/75">
+            {companyAddressLines().join(", ")}
+          </p>
         </div>
 
         <div>
-          <p className="text-[11px] tracking-[0.22em] text-gold-bright">
+          <p className="text-xs font-semibold tracking-[0.16em] text-white/60">
             COMPANY
           </p>
           <ul className="mt-4 space-y-2">
             {footerLinks.map((link) => (
               <li key={link.href}>
-                <a
-                  href={link.href}
-                  className="text-sm text-ink-muted hover:text-ink"
-                >
+                <a href={link.href} className="text-sm text-white/80 hover:text-white">
                   {link.label}
                 </a>
               </li>
@@ -64,20 +64,17 @@ export default function Footer({ onManageCookies, onOpenCookiePolicy }: FooterPr
         </div>
 
         <div>
-          <p className="text-[11px] tracking-[0.22em] text-gold-bright">
+          <p className="text-xs font-semibold tracking-[0.16em] text-white/60">
             CONTACT
           </p>
-          <ul className="mt-4 space-y-2 text-sm text-ink-muted">
+          <ul className="mt-4 space-y-2 text-sm text-white/80">
             <li>
-              <a className="break-all hover:text-ink" href={`mailto:${company.email}`}>
+              <a className="break-all hover:text-white" href={`mailto:${company.email}`}>
                 {company.email}
               </a>
             </li>
             <li>
-              <a
-                className="hover:text-ink"
-                href={`tel:${company.phone.replace(/\s/g, "")}`}
-              >
+              <a className="hover:text-white" href={`tel:${company.phone.replace(/\s/g, "")}`}>
                 {company.phone}
               </a>
             </li>
@@ -91,7 +88,7 @@ export default function Footer({ onManageCookies, onOpenCookiePolicy }: FooterPr
                   <li key={item.id}>
                     <a
                       href={item.href}
-                      className="icon-glass inline-flex size-10 items-center justify-center rounded-full text-ink-muted hover:text-ink"
+                      className="inline-flex size-10 items-center justify-center rounded-md border border-white/20 text-white/80 hover:text-white"
                       aria-label={item.label}
                       rel="noreferrer noopener"
                       target="_blank"
@@ -106,19 +103,19 @@ export default function Footer({ onManageCookies, onOpenCookiePolicy }: FooterPr
         </div>
       </div>
 
-      <div className="container-page mt-12 flex flex-col gap-3 border-t border-white/40 pt-6 text-xs text-ink-muted sm:flex-row sm:items-center sm:justify-between">
+      <div className="container-page mt-12 flex flex-col gap-3 border-t border-white/15 pt-6 text-xs text-white/60 sm:flex-row sm:items-center sm:justify-between">
         <p>© 2026 Goldman’s Supply Corporation. All rights reserved.</p>
         <nav aria-label="Legal" className="flex flex-wrap gap-x-4 gap-y-2">
-          <a className="hover:text-ink" href="#privacy">
+          <a className="hover:text-white" href="#privacy">
             Privacy Policy
           </a>
-          <button type="button" className="text-left hover:text-ink" onClick={onOpenCookiePolicy}>
+          <button type="button" className="text-left hover:text-white" onClick={onOpenCookiePolicy}>
             Cookie Policy
           </button>
-          <button type="button" className="text-left hover:text-ink" onClick={onManageCookies}>
+          <button type="button" className="text-left hover:text-white" onClick={onManageCookies}>
             Cookie settings
           </button>
-          <a className="hover:text-ink" href="/sitemap.xml">
+          <a className="hover:text-white" href="/sitemap.xml">
             Sitemap
           </a>
         </nav>

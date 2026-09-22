@@ -26,14 +26,12 @@ const legalFacts = [
 
 export default function About() {
   return (
-    <section id="about" className="section-defer relative scroll-mt-24 py-14 sm:py-24 lg:py-28">
+    <section id="about" className="section-defer relative scroll-mt-24 bg-white py-12 sm:scroll-mt-28 sm:py-20">
       <div className="container-page">
         <div className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
           <Reveal>
-            <p className="text-[11px] tracking-[0.18em] text-gold-bright">
-              ABOUT US
-            </p>
-            <h2 className="mt-4 max-w-md text-[1.75rem] font-normal tracking-[-0.03em] text-pretty text-ink sm:text-4xl">
+            <p className="section-kicker">About Us</p>
+            <h2 className="section-title max-w-md">
               About {company.name}
             </h2>
             <p className="mt-5 text-base leading-relaxed text-ink-muted sm:text-lg">
@@ -45,10 +43,10 @@ export default function About() {
           </Reveal>
 
           <Reveal delay={0.06}>
-            <dl className="surface-card grid gap-5 rounded-2xl p-6 text-sm sm:grid-cols-2">
+            <dl className="surface-card grid gap-5 p-5 text-sm sm:grid-cols-2 sm:p-6">
               {legalFacts.map((fact) => (
                 <div key={fact.label} className="min-w-0">
-                  <dt className="text-[11px] tracking-[0.16em] text-gold-bright">
+                  <dt className="text-xs font-semibold tracking-[0.12em] text-gold-bright uppercase">
                     {fact.label}
                   </dt>
                   <dd className="mt-1 break-words text-ink">{fact.value}</dd>
@@ -58,10 +56,10 @@ export default function About() {
           </Reveal>
         </div>
 
-        <div className="mt-10 grid gap-4 md:grid-cols-3">
+        <div className="mt-8 grid gap-4 sm:mt-10 md:grid-cols-3">
           {profileCards.map((card) => (
-            <article key={card.title} className="surface-card h-full rounded-2xl p-6">
-              <h3 className="text-lg text-ink">{card.title}</h3>
+            <article key={card.title} className="surface-card h-full p-5 sm:p-6">
+              <h3 className="text-lg font-semibold text-ink">{card.title}</h3>
               <p className="mt-3 text-sm leading-relaxed text-ink-muted">
                 {card.text}
               </p>

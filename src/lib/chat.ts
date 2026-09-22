@@ -1,5 +1,6 @@
 import { company, hasVerifiedPhone } from "../config/company";
 import { industries } from "../data/industries";
+import { news, newsCategoryLabel } from "../data/news";
 import { services } from "../data/services";
 
 export const chatSuggestions = [
@@ -127,6 +128,25 @@ const topics: Topic[] = [
     answer: `The Industries We Serve section of this website lists: ${industries
       .map((item) => item.title)
       .join(", ")}. ${company.description}`,
+  },
+  {
+    keys: [
+      "news",
+      "achievement",
+      "achievements",
+      "award",
+      "awards",
+      "social media",
+      "acknowledg",
+      "update",
+      "updates",
+    ],
+    answer:
+      news.length === 0
+        ? "The News section of this website is for company achievements and social media acknowledgements, with photographs when available. No news has been published yet."
+        : `The News section of this website currently lists: ${news
+            .map((item) => `${item.title} (${newsCategoryLabel[item.category]})`)
+            .join(", ")}.`,
   },
   {
     keys: ["cookie", "cookies", "privacy"],

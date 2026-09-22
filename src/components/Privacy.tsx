@@ -58,7 +58,7 @@ export default function Privacy() {
   return (
     <section
       id="privacy"
-      className="relative min-h-[70vh] scroll-mt-24 pt-[calc(5.25rem+env(safe-area-inset-top,0px))] pb-16 sm:pt-32 sm:pb-24"
+      className="relative min-h-[70vh] scroll-mt-28 bg-white pt-[calc(5.5rem+env(safe-area-inset-top,0px))] pb-16 sm:pt-36 sm:pb-24"
     >
       <div className="container-page max-w-3xl">
         <a
@@ -68,10 +68,10 @@ export default function Privacy() {
           <ArrowLeft size={16} strokeWidth={1.7} />
           Back to Home
         </a>
-        <p className="mt-8 text-[11px] tracking-[0.18em] text-gold-bright">
-          PRIVACY POLICY
+        <p className="mt-8 section-kicker">
+          Privacy Policy
         </p>
-        <h1 className="mt-4 text-[1.75rem] font-normal tracking-[-0.03em] text-ink sm:text-4xl">
+        <h1 className="section-title">
           Privacy Policy
         </h1>
         <p className="mt-3 text-sm text-ink-muted">

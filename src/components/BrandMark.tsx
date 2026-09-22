@@ -10,29 +10,29 @@ export default function BrandMark({ size = "md" }: BrandMarkProps) {
   return (
     <span className="flex min-w-0 items-center gap-2 sm:gap-3">
       <img
-        src="/logo.svg"
+        src="/logo.png"
         alt=""
-        width={compact ? 34 : 40}
-        height={compact ? 34 : 40}
-        className={`shrink-0 rounded-[0.7rem] border border-white/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] ${
-          compact ? "size-[34px]" : "size-8 sm:size-10"
+        width={compact ? 40 : 48}
+        height={compact ? 40 : 48}
+        className={`shrink-0 object-contain ${
+          compact ? "size-10" : "size-10 sm:size-12"
         }`}
       />
       <span className="flex min-w-0 flex-col leading-none">
         <span
-          className={`font-serif text-ink ${
+          className={`truncate font-semibold text-ink ${
             compact
               ? "text-[11px] tracking-[0.12em]"
-              : "text-[10px] tracking-[0.12em] sm:text-[13px] sm:tracking-[0.16em]"
+              : "text-xs tracking-[0.1em] sm:text-[13px] sm:tracking-[0.16em]"
           }`}
         >
           {company.wordmarkPrimary}
         </span>
         <span
-          className={`mt-1 text-gold-bright ${
+          className={`mt-1 truncate text-gold-bright ${
             compact
               ? "text-[8px] tracking-[0.14em]"
-              : "text-[7px] tracking-[0.12em] sm:text-[9px] sm:tracking-[0.18em]"
+              : "text-[8px] tracking-[0.1em] sm:text-[9px] sm:tracking-[0.18em]"
           }`}
         >
           {company.wordmarkSecondary}

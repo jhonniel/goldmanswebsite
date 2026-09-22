@@ -127,6 +127,8 @@ export default function ChatWidget() {
     if (!open) return;
 
     const previous = launcherRef.current;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     inputRef.current?.focus();
 
     if (!openedOnce.current) {
@@ -142,6 +144,7 @@ export default function ChatWidget() {
 
     document.addEventListener("keydown", onKey);
     return () => {
+      document.body.style.overflow = previousOverflow;
       document.removeEventListener("keydown", onKey);
       previous?.focus();
     };
@@ -259,7 +262,7 @@ export default function ChatWidget() {
       setCompose(initialCompose());
       void speak(
         result.status === "sent"
-          ? "Thank you. Your message has been sent to Goldman’s Supply Corporation."
+          ? "Thank you. Your message has been sent to Goldman’s Supply Corporation. A confirmation email has also been sent to you."
           : `If your email application did not open, please send your message to ${company.email}.`,
       );
     } catch {
@@ -278,7 +281,7 @@ export default function ChatWidget() {
       className={
         open
           ? "pointer-events-none fixed inset-x-3 z-[62] bottom-[max(0.75rem,env(safe-area-inset-bottom,0px))] sm:inset-x-auto sm:right-6 sm:bottom-6"
-          : "pointer-events-none fixed z-[62] right-[max(1rem,env(safe-area-inset-right,0px))] bottom-[max(1rem,env(safe-area-inset-bottom,0px))]"
+          : "pointer-events-none fixed z-[62] right-[max(0.75rem,env(safe-area-inset-right,0px))] bottom-[max(0.75rem,env(safe-area-inset-bottom,0px))] sm:right-6 sm:bottom-6"
       }
     >
       {open ? (
@@ -291,7 +294,7 @@ export default function ChatWidget() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={revealTransition(0)}
           id="company-chat"
-          className="pointer-events-auto flex h-[min(36rem,calc(100dvh-6.5rem-env(safe-area-inset-top,0px)-env(safe-area-inset-bottom,0px)))] w-full flex-col overflow-hidden rounded-3xl surface-card sm:h-[min(36rem,calc(100dvh-5.5rem))] sm:w-[24rem]"
+          className="pointer-events-auto flex h-[min(36rem,calc(100dvh-5.5rem-env(safe-area-inset-top,0px)-env(safe-area-inset-bottom,0px)))] w-full max-w-full flex-col overflow-hidden rounded-2xl surface-card sm:h-[min(36rem,calc(100dvh-5.5rem))] sm:w-[24rem] sm:rounded-3xl"
         >
           <header className="flex items-start justify-between gap-3 border-b border-white/50 px-4 py-3">
             <div className="min-w-0">
@@ -358,7 +361,7 @@ export default function ChatWidget() {
                   <button
                     key={suggestion}
                     type="button"
-                    className="glass-chip rounded-full px-3 py-1.5 text-xs text-ink hover:text-gold-bright"
+                    className="rounded-md border border-paper-soft bg-paper px-3 py-1.5 text-xs text-ink hover:text-gold-bright"
                     onClick={() => handleVisitorText(suggestion)}
                   >
                     {suggestion}
