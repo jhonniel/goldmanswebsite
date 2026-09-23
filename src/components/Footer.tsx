@@ -115,9 +115,6 @@ export default function Footer({ onManageCookies, onOpenCookiePolicy }: FooterPr
           <button type="button" className="text-left hover:text-white" onClick={onManageCookies}>
             Cookie settings
           </button>
-          <a className="hover:text-white" href="/sitemap.xml">
-            Sitemap
-          </a>
         </nav>
       </div>
     </footer>
